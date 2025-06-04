@@ -34,7 +34,7 @@ const Index = () => {
                 </Button>
               </Link>
               <Link to="/buyer">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-green-800 px-8 py-3">
+                <Button size="lg" variant="outline" className="border-white text-green-600 hover:bg-white hover:text-green-600 px-8 py-3">
                   <ShoppingCart className="h-5 w-5 mr-2" />
                   I Want to Buy
                 </Button>
