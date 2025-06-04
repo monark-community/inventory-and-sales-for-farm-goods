@@ -10,15 +10,21 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-green-50">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=4896&q=80)'
+          }}
+        />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-r from-green-900/80 to-green-800/80">
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <Sprout className="h-20 w-20 text-green-600" />
+              <Sprout className="h-20 w-20 text-green-100" />
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-green-800 mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
               Bazarius
             </h1>
-            <p className="text-xl md:text-2xl text-green-600 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-green-100 mb-8 max-w-3xl mx-auto">
               Decentralized marketplace connecting local farmers with customers through trustless, self-serve kiosks
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -29,7 +35,7 @@ const Index = () => {
                 </Button>
               </Link>
               <Link to="/buyer">
-                <Button size="lg" variant="outline" className="border-green-600 text-green-600 hover:bg-green-50 px-8 py-3">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-green-800 px-8 py-3">
                   <ShoppingCart className="h-5 w-5 mr-2" />
                   I Want to Buy
                 </Button>
