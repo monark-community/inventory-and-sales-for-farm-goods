@@ -19,7 +19,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <MonarkBannerWrapper>
+
         <BrowserRouter>
           <div className="min-h-screen">
             <Navigation />
@@ -32,7 +32,7 @@ const App = () => (
             </Routes>
           </div>
         </BrowserRouter>
-      </MonarkBannerWrapper>
+
     </TooltipProvider>
   </QueryClientProvider>
 );
