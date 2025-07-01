@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { QrCode, ArrowLeft, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -20,7 +21,7 @@ const QRScanner = () => {
       unit: 'lb',
       inStock: 12,
       description: 'Fresh heirloom tomatoes, grown without pesticides',
-      image: 'https://images.unsplash.com/photo-1546470427-e3a4e4bbb372?w=300&h=200&fit=crop'
+      image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=300&h=200&fit=crop'
     },
     {
       id: 2,
@@ -56,7 +57,7 @@ const QRScanner = () => {
       unit: 'bag',
       inStock: 10,
       description: 'Fresh spinach, kale, and arugula blend',
-      image: 'https://images.unsplash.com/photo-1556801712-d0d3e6d4e8c5?w=300&h=200&fit=crop'
+      image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=300&h=200&fit=crop'
     }
   ];
 
@@ -144,15 +145,6 @@ const QRScanner = () => {
               <QrCode className="h-4 w-4 mr-1" />
               Scan Different Stand
             </Button>
-            
-            {!isWalletConnected && (
-              <Button 
-                onClick={handleConnectWallet}
-                className="bg-earthy-green-600 hover:bg-earthy-green-700"
-              >
-                Connect Wallet
-              </Button>
-            )}
           </div>
         </div>
 
@@ -176,17 +168,32 @@ const QRScanner = () => {
           <Card className="mb-6">
             <CardContent className="p-6">
               <h2 className="text-lg font-semibold mb-4">How to Use</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm text-gray-600">
                 <div className="flex items-center space-x-2">
                   <span className="bg-earthy-green-100 text-earthy-green-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">1</span>
-                  <span>Browse available products</span>
+                  <div className="flex flex-col">
+                    <span>Connect your wallet</span>
+                    {!isWalletConnected && (
+                      <Button 
+                        size="sm" 
+                        onClick={handleConnectWallet}
+                        className="mt-1 bg-earthy-green-600 hover:bg-earthy-green-700 text-xs px-2 py-1 h-6"
+                      >
+                        Connect Wallet
+                      </Button>
+                    )}
+                  </div>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="bg-earthy-green-100 text-earthy-green-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">2</span>
-                  <span>Add items to your cart</span>
+                  <span>Browse available products</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="bg-earthy-green-100 text-earthy-green-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">3</span>
+                  <span>Add items to your cart</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="bg-earthy-green-100 text-earthy-green-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">4</span>
                   <span>Pay and collect your items</span>
                 </div>
               </div>
