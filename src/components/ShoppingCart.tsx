@@ -35,7 +35,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
   if (totalItems === 0) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 pb-16">
+    <div className="fixed bottom-0 left-0 right-0 z-50 pb-12">
       <Drawer>
         <DrawerTrigger asChild>
           <div className="bg-earthy-green-600 text-white px-4 py-3 mx-4 mb-4 rounded-lg shadow-lg cursor-pointer hover:bg-earthy-green-700 transition-colors">
