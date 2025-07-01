@@ -128,34 +128,6 @@ const BuyerProfile: React.FC<BuyerProfileProps> = ({ onBack }) => {
           </Card>
         </div>
 
-        {/* Recent Transactions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Transactions</CardTitle>
-            <CardDescription>Your latest purchases on Bazarius</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {recentTransactions.map((transaction) => (
-                <div key={transaction.id} className="flex items-center justify-between p-4 border rounded-lg">
-                  <div className="flex items-center space-x-4">
-                    <Package className="h-8 w-8 text-earthy-green-600" />
-                    <div>
-                      <h4 className="font-semibold">{transaction.shop}</h4>
-                      <p className="text-sm text-gray-600">{transaction.items.join(', ')}</p>
-                      <p className="text-xs text-gray-500">{transaction.date}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold">{transaction.total.toFixed(2)} USDT</p>
-                    <p className="text-xs text-green-600">{transaction.status}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Top Shops */}
         <Card>
           <CardHeader>
@@ -189,6 +161,35 @@ const BuyerProfile: React.FC<BuyerProfileProps> = ({ onBack }) => {
             </div>
           </CardContent>
         </Card>
+
+       {/* Recent Transactions */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Transactions</CardTitle>
+            <CardDescription>Your latest purchases on Bazarius</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {recentTransactions.map((transaction) => (
+                <div key={transaction.id} className="flex items-center justify-between p-4 border rounded-lg">
+                  <div className="flex items-center space-x-4">
+                    <Package className="h-8 w-8 text-earthy-green-600" />
+                    <div>
+                      <h4 className="font-semibold">{transaction.shop}</h4>
+                      <p className="text-sm text-gray-600">{transaction.items.join(', ')}</p>
+                      <p className="text-xs text-gray-500">{transaction.date}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold">{transaction.total.toFixed(2)} USDT</p>
+                    <p className="text-xs text-green-600">{transaction.status}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+        
       </div>
     </div>
   );
