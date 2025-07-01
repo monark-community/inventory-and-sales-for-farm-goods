@@ -29,6 +29,7 @@ const Navigation = ({
 }: NavigationProps) => {
   const location = useLocation();
   const [userAlias] = useState('farmer.eth');
+  const [userAddress] = useState('0x742d35Cc6Bf4532C1054...');
   
   const isActive = (path: string) => location.pathname === path;
 
@@ -56,7 +57,10 @@ const Navigation = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to={isWalletConnected ? "/qr-scanner" : "/"} className="flex items-center space-x-2">
+            <Link 
+              to={isWalletConnected ? "/qr-scanner" : "/"} 
+              className="flex items-center space-x-2"
+            >
               <Sprout className="h-8 w-8 text-earthy-green-600" />
               <span className="text-2xl font-bold text-earthy-green-800">Bazarius</span>
             </Link>
@@ -85,13 +89,17 @@ const Navigation = ({
             ) : (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center space-x-2 px-3">
+                  <Button variant="ghost" className="flex items-center space-x-3 px-3">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src="" />
                       <AvatarFallback className="bg-earthy-green-600 text-white">
                         {userAlias.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
+                    <div className="flex flex-col items-start">
+                      <span className="text-sm font-medium">{userAlias}</span>
+                      <span className="text-xs text-gray-500">{userAddress}</span>
+                    </div>
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -119,13 +127,6 @@ const Navigation = ({
                       </SelectContent>
                     </Select>
                   </div>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link to={mode === 'buyer' ? "/buyer-info" : "/vendor"} className="flex items-center">
-                      {mode === 'buyer' ? <User className="mr-2 h-4 w-4" /> : <Store className="mr-2 h-4 w-4" />}
-                      <span>{mode === 'buyer' ? 'Buyer Profile' : 'Seller Dashboard'}</span>
-                    </Link>
-                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="flex items-center">
                     <LogOut className="mr-2 h-4 w-4" />

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, ExternalLink } from 'lucide-react';
+import { MapPin, Map, ArrowLeft, QrCode } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -58,15 +58,22 @@ const NearbyShops = ({ onBack }: NearbyShopsProps) => {
     }
   ];
 
+  const handleVisitShop = (shopId: number) => {
+    // Navigate back to the main shop page - in a real app this would route to the specific shop
+    onBack();
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="mb-6">
         <Button 
           variant="ghost" 
           onClick={onBack}
-          className="mb-4 text-earthy-green-600 hover:text-earthy-green-700"
+          className="mb-4 flex items-center text-earthy-green-600 hover:text-earthy-green-700"
         >
-          ← Back to QR Scanner
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          <QrCode className="h-4 w-4 mr-1" />
+          Scan Different Stand
         </Button>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Nearby Farm Stands</h1>
         <p className="text-gray-600">Find fresh produce from local farmers near you</p>
@@ -95,10 +102,7 @@ const NearbyShops = ({ onBack }: NearbyShopsProps) => {
               <div className="flex space-x-2">
                 <Button 
                   className="flex-1 bg-earthy-green-600 hover:bg-earthy-green-700"
-                  onClick={() => {
-                    // TODO: Navigate to shop's QR scanner page
-                    console.log('Navigate to shop:', shop.id);
-                  }}
+                  onClick={() => handleVisitShop(shop.id)}
                 >
                   Visit Shop
                 </Button>
@@ -108,7 +112,7 @@ const NearbyShops = ({ onBack }: NearbyShopsProps) => {
                   onClick={() => window.open(shop.googleMapsUrl, '_blank')}
                   className="border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-50"
                 >
-                  <ExternalLink className="h-4 w-4" />
+                  <Map className="h-4 w-4" />
                 </Button>
               </div>
             </CardContent>
