@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { QrCode, ArrowLeft, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { ShoppingCart } from '@/components/ShoppingCart';
+import ShoppingCart from '@/components/ShoppingCart';
 
 const QRScanner = () => {
   const [isScanned, setIsScanned] = useState(false);
@@ -97,13 +96,18 @@ const QRScanner = () => {
     }
   };
 
+  const removeFromCart = (productId) => {
+    setCart(prevCart => prevCart.filter(item => item.id !== productId));
+  };
+
   const getProductQuantity = (productId) => {
     const cartItem = cart.find(item => item.id === productId);
     return cartItem ? cartItem.quantity : 0;
   };
 
-  const getTotalPrice = () => {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const handleCheckout = () => {
+    console.log('Proceeding to checkout with cart:', cart);
+    // TODO: Implement checkout logic
   };
 
   if (!isScanned) {
@@ -156,19 +160,14 @@ const QRScanner = () => {
           {/* Welcome Section */}
           <Card className="mb-6">
             <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="w-16 h-16 bg-earthy-green-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl">🌱</span>
-                  </div>
-                  <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Welcome to Green Valley Farm Stand</h1>
-                    <p className="text-gray-600">Fresh, locally grown produce available now</p>
-                  </div>
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-earthy-green-100 rounded-full flex items-center justify-center">
+                  <span className="text-2xl">🌱</span>
                 </div>
-                <Badge variant="secondary" className="bg-earthy-green-100 text-earthy-green-700">
-                  Open 24/7
-                </Badge>
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900">Welcome to Green Valley Farm Stand</h1>
+                  <p className="text-gray-600">Fresh, locally grown produce available now</p>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -273,11 +272,10 @@ const QRScanner = () => {
 
         {/* Shopping Cart */}
         <ShoppingCart 
-          cart={cart}
-          isOpen={isCartOpen}
-          onToggle={() => setIsCartOpen(!isCartOpen)}
+          items={cart}
           onUpdateQuantity={updateQuantity}
-          totalPrice={getTotalPrice()}
+          onRemoveItem={removeFromCart}
+          onCheckout={handleCheckout}
         />
       </div>
     </TooltipProvider>
