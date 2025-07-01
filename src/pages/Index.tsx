@@ -27,13 +27,13 @@ const Index = () => {
               Decentralized marketplace connecting local farmers with customers through trustless, self-serve kiosks
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/vendor">
+              <Link to="/farmer-info">
                 <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-3">
                   <Users className="h-5 w-5 mr-2" />
                   I'm a Farmer
                 </Button>
               </Link>
-              <Link to="/buyer">
+              <Link to="/buyer-info">
                 <Button size="lg" variant="outline" className="border-white text-green-600 hover:bg-white hover:text-green-600 px-8 py-3">
                   <ShoppingCart className="h-5 w-5 mr-2" />
                   I Want to Buy
@@ -177,7 +177,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="mt-8">
-                <Link to="/vendor">
+                <Link to="/farmer-info">
                   <Button className="w-full bg-green-600 hover:bg-green-700">
                     Get Started as Vendor
                   </Button>

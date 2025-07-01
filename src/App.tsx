@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,9 +8,10 @@ import MonarkBannerWrapper from "./components/MonarkDemoWrapper";
 import Navigation from "./components/Navigation";
 import Index from "./pages/Index";
 import VendorDashboard from "./pages/VendorDashboard";
-import BuyerInterface from "./pages/BuyerInterface";
 import QRScanner from "./pages/QRScanner";
 import NotFound from "./pages/NotFound";
+import FarmerInfo from "./pages/FarmerInfo";
+import BuyerInfo from "./pages/BuyerInfo";
 
 const queryClient = new QueryClient();
 
@@ -25,7 +27,8 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/vendor" element={<VendorDashboard />} />
-              <Route path="/buyer" element={<BuyerInterface />} />
+              <Route path="/farmer-info" element={<FarmerInfo />} />
+              <Route path="/buyer-info" element={<BuyerInfo />} />
               <Route path="/qr-scanner" element={<QRScanner />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
