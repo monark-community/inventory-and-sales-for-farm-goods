@@ -1,363 +1,286 @@
 
 import React, { useState } from 'react';
-import { QrCode, Scan, Wallet, ArrowLeft, Plus, Minus } from 'lucide-react';
+import { QrCode, ArrowLeft, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useToast } from '@/hooks/use-toast';
-import ShoppingCart from '@/components/ShoppingCart';
-
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-  unit: string;
-}
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { ShoppingCart } from '@/components/ShoppingCart';
 
 const QRScanner = () => {
-  const { toast } = useToast();
-  const [isScanning, setIsScanning] = useState(false);
-  const [scannedData, setScannedData] = useState<any>(null);
+  const [isScanned, setIsScanned] = useState(false);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [quantities, setQuantities] = useState<{[key: string]: number}>({});
+  const [cart, setCart] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const mockProductData = {
-    standId: "farm-stand-001",
-    standName: "Green Valley Farm Stand",
-    location: "Main St & Oak Ave",
-    products: [
-      { 
-        id: "1", 
-        name: "Fresh Tomatoes", 
-        price: 3.50, 
-        available: 25, 
-        unit: "lb",
-        image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=400&auto=format&fit=crop"
-      },
-      { 
-        id: "2", 
-        name: "Organic Apples", 
-        price: 4.00, 
-        available: 15, 
-        unit: "lb",
-        image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=400&auto=format&fit=crop"
-      },
-      { 
-        id: "3", 
-        name: "Free Range Eggs", 
-        price: 6.00, 
-        available: 12, 
-        unit: "dozen",
-        image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?q=80&w=400&auto=format&fit=crop"
-      }
-    ]
-  };
+  const products = [
+    {
+      id: 1,
+      name: 'Organic Tomatoes',
+      price: 4.50,
+      unit: 'lb',
+      inStock: 12,
+      description: 'Fresh heirloom tomatoes, grown without pesticides',
+      image: 'https://images.unsplash.com/photo-1546470427-e3a4e4bbb372?w=300&h=200&fit=crop'
+    },
+    {
+      id: 2,
+      name: 'Sweet Corn',
+      price: 6.00,
+      unit: 'dozen',
+      inStock: 8,
+      description: 'Just picked this morning, incredibly sweet',
+      image: 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=300&h=200&fit=crop'
+    },
+    {
+      id: 3,
+      name: 'Farm Fresh Eggs',
+      price: 5.50,
+      unit: 'dozen',
+      inStock: 15,
+      description: 'Free-range eggs from our happy hens',
+      image: 'https://images.unsplash.com/photo-1518569656558-1f25e69d93d7?w=300&h=200&fit=crop'
+    },
+    {
+      id: 4,
+      name: 'Organic Carrots',
+      price: 3.25,
+      unit: 'bunch',
+      inStock: 6,
+      description: 'Crisp and sweet, perfect for snacking',
+      image: 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=300&h=200&fit=crop'
+    },
+    {
+      id: 5,
+      name: 'Leafy Greens Mix',
+      price: 4.75,
+      unit: 'bag',
+      inStock: 10,
+      description: 'Fresh spinach, kale, and arugula blend',
+      image: 'https://images.unsplash.com/photo-1556801712-d0d3e6d4e8c5?w=300&h=200&fit=crop'
+    }
+  ];
 
-  const handleScanQR = () => {
-    setIsScanning(true);
-    
-    setTimeout(() => {
-      setScannedData(mockProductData);
-      setIsScanning(false);
-      toast({
-        title: "QR Code Scanned!",
-        description: `Connected to ${mockProductData.standName}`
-      });
-    }, 2000);
+  const handleScanClick = () => {
+    setIsScanned(true);
   };
 
   const handleConnectWallet = () => {
     setIsWalletConnected(true);
-    toast({
-      title: "Wallet Connected",
-      description: "Ready to make purchases"
-    });
   };
 
-  const handleQuantityChange = (productId: string, change: number) => {
-    setQuantities(prev => ({
-      ...prev,
-      [productId]: Math.max(0, (prev[productId] || 0) + change)
-    }));
-  };
-
-  const handleAddToCart = (product: any) => {
-    if (!isWalletConnected) {
-      toast({
-        title: "Connect Wallet",
-        description: "Please connect your wallet first",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    const quantity = quantities[product.id] || 1;
-    const existingItem = cart.find(item => item.id === product.id);
-
-    if (existingItem) {
-      setCart(prev => prev.map(item => 
-        item.id === product.id 
-          ? { ...item, quantity: item.quantity + quantity }
-          : item
-      ));
-    } else {
-      setCart(prev => [...prev, {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity: quantity,
-        image: product.image,
-        unit: product.unit
-      }]);
-    }
-
-    setQuantities(prev => ({ ...prev, [product.id]: 0 }));
+  const addToCart = (product, quantity = 1) => {
+    if (!isWalletConnected) return;
     
-    toast({
-      title: "Added to Cart",
-      description: `${quantity} ${product.unit} of ${product.name} added`
+    setCart(prevCart => {
+      const existingItem = prevCart.find(item => item.id === product.id);
+      if (existingItem) {
+        return prevCart.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
+      }
+      return [...prevCart, { ...product, quantity }];
     });
   };
 
-  const handleCartQuantityUpdate = (id: string, newQuantity: number) => {
+  const updateQuantity = (productId, newQuantity) => {
     if (newQuantity === 0) {
-      setCart(prev => prev.filter(item => item.id !== id));
+      setCart(prevCart => prevCart.filter(item => item.id !== productId));
     } else {
-      setCart(prev => prev.map(item => 
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      ));
+      setCart(prevCart => 
+        prevCart.map(item =>
+          item.id === productId ? { ...item, quantity: newQuantity } : item
+        )
+      );
     }
   };
 
-  const handleRemoveFromCart = (id: string) => {
-    setCart(prev => prev.filter(item => item.id !== id));
+  const getProductQuantity = (productId) => {
+    const cartItem = cart.find(item => item.id === productId);
+    return cartItem ? cartItem.quantity : 0;
   };
 
-  const handleCheckout = () => {
-    toast({
-      title: "Order Placed!",
-      description: "Your order has been sent to the farmer"
-    });
-    setCart([]);
+  const getTotalPrice = () => {
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
-  const handleBackToScanner = () => {
-    setScannedData(null);
-    setIsWalletConnected(false);
-    setCart([]);
-    setQuantities({});
-  };
+  if (!isScanned) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-earthy-green-50 to-earthy-green-100">
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="bg-white rounded-full p-8 shadow-lg mb-8 mx-auto w-32 h-32 flex items-center justify-center">
+            <QrCode className="h-16 w-16 text-earthy-green-600" />
+          </div>
+          <Button 
+            onClick={handleScanClick}
+            size="lg"
+            className="bg-earthy-green-600 hover:bg-earthy-green-700 text-white px-8 py-4"
+          >
+            Scan QR Code
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-earthy-green-50 to-blue-50 p-4">
-      <div className="max-w-4xl mx-auto">
-        {!scannedData ? (
-          <div className="flex flex-col items-center space-y-8">
-            {/* QR Scanner Section */}
-            <Card className="w-full max-w-2xl">
-              <CardHeader className="text-center">
-                <QrCode className="h-16 w-16 mx-auto text-earthy-green-600 mb-4" />
-                <CardTitle>Scan Farm Stand QR Code</CardTitle>
-                <CardDescription>
-                  Point your camera at the QR code displayed at the farm stand
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <Button
-                  onClick={handleScanQR}
-                  disabled={isScanning}
-                  className="bg-earthy-green-600 hover:bg-earthy-green-700 w-full"
-                  size="lg"
-                >
-                  {isScanning ? (
-                    <>
-                      <Scan className="h-5 w-5 mr-2 animate-pulse" />
-                      Scanning...
-                    </>
-                  ) : (
-                    <>
-                      <Scan className="h-5 w-5 mr-2" />
-                      Start Scanning
-                    </>
-                  )}
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Instructions */}
-            <Card className="w-full max-w-2xl">
-              <CardHeader>
-                <CardTitle>How to Use</CardTitle>
-                <CardDescription>Follow these simple steps to purchase from any farm stand</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-2 font-bold text-sm">1</div>
-                    <div>
-                      <h3 className="font-semibold">Find the QR Code</h3>
-                      <p className="text-gray-600">Look for the Bazarius QR code displayed at the farm stand</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-2 font-bold text-sm">2</div>
-                    <div>
-                      <h3 className="font-semibold">Scan the Code</h3>
-                      <p className="text-gray-600">Use this scanner to connect to the stand's inventory</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-2 font-bold text-sm">3</div>
-                    <div>
-                      <h3 className="font-semibold">Connect Your Wallet</h3>
-                      <p className="text-gray-600">Connect your digital wallet for secure payments</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-2 font-bold text-sm">4</div>
-                    <div>
-                      <h3 className="font-semibold">Shop & Pay</h3>
-                      <p className="text-gray-600">Browse available products and complete your purchase</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        ) : (
-          <div className="space-y-6">
-            {/* Back Button */}
-            <div className="flex items-start">
-              <Button
-                onClick={handleBackToScanner}
-                variant="outline"
-                className="flex items-center space-x-2"
+    <TooltipProvider>
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <div className="bg-white shadow-sm border-b border-gray-200 p-4">
+          <div className="max-w-4xl mx-auto flex items-center justify-between">
+            <Button 
+              variant="ghost" 
+              onClick={() => setIsScanned(false)}
+              className="flex items-center text-earthy-green-600 hover:text-earthy-green-700"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              <QrCode className="h-4 w-4 mr-1" />
+              Scan Different Stand
+            </Button>
+            
+            {!isWalletConnected && (
+              <Button 
+                onClick={handleConnectWallet}
+                className="bg-earthy-green-600 hover:bg-earthy-green-700"
               >
-                <ArrowLeft className="h-4 w-4" />
-                <QrCode className="h-4 w-4" />
-                <span>Scan Different Stand</span>
+                Connect Wallet
               </Button>
-            </div>
-
-            {/* Farm Stand Welcome */}
-            <Card className="bg-earthy-green-50 border-earthy-green-200">
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <h2 className="text-2xl font-bold text-earthy-green-800 mb-2">
-                    Welcome to {scannedData.standName}!
-                  </h2>
-                  <p className="text-earthy-green-600 mb-4">{scannedData.location}</p>
-                  <p className="text-gray-700">
-                    Fresh, locally grown produce picked just for you. Support sustainable farming 
-                    and enjoy the best flavors nature has to offer.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Wallet Connection */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="font-semibold">Wallet Status</h3>
-                    <p className="text-gray-600">Connect your wallet to make purchases</p>
-                  </div>
-                  <Button
-                    onClick={handleConnectWallet}
-                    variant={isWalletConnected ? "outline" : "default"}
-                    className={isWalletConnected 
-                      ? "border-earthy-green-500 text-earthy-green-600" 
-                      : "bg-earthy-green-600 hover:bg-earthy-green-700"
-                    }
-                  >
-                    <Wallet className="h-4 w-4 mr-2" />
-                    {isWalletConnected ? "Connected" : "Connect Wallet"}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Available Products */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Available Products</CardTitle>
-                <CardDescription>Fresh products available for purchase</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {scannedData.products.map((product: any) => (
-                    <Card key={product.id} className="border border-gray-200">
-                      <CardContent className="p-4">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-32 object-cover rounded mb-3"
-                        />
-                        <h3 className="font-semibold mb-2">{product.name}</h3>
-                        <div className="flex justify-between items-center mb-3">
-                          <span className="text-2xl font-bold text-earthy-green-600">
-                            ${product.price.toFixed(2)}
-                          </span>
-                          <span className="text-sm text-gray-500">per {product.unit}</span>
-                        </div>
-                        <div className="flex justify-between items-center mb-3">
-                          <span className="text-sm text-gray-600">Available:</span>
-                          <span className="font-semibold text-earthy-green-600">
-                            {product.available} {product.unit}
-                          </span>
-                        </div>
-                        
-                        {/* Quantity Picker */}
-                        <div className="flex items-center justify-center space-x-3 mb-3">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handleQuantityChange(product.id, -1)}
-                            disabled={!quantities[product.id] || quantities[product.id] <= 0}
-                            className="h-8 w-8 p-0"
-                          >
-                            <Minus className="h-3 w-3" />
-                          </Button>
-                          <span className="text-lg font-semibold w-12 text-center">
-                            {quantities[product.id] || 0}
-                          </span>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handleQuantityChange(product.id, 1)}
-                            className="h-8 w-8 p-0"
-                          >
-                            <Plus className="h-3 w-3" />
-                          </Button>
-                        </div>
-
-                        <Button
-                          onClick={() => handleAddToCart(product)}
-                          disabled={!isWalletConnected || !quantities[product.id]}
-                          className="w-full bg-earthy-green-600 hover:bg-earthy-green-700"
-                        >
-                          Add to Cart
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            )}
           </div>
-        )}
-      </div>
+        </div>
 
-      <ShoppingCart
-        items={cart}
-        onUpdateQuantity={handleCartQuantityUpdate}
-        onRemoveItem={handleRemoveFromCart}
-        onCheckout={handleCheckout}
-      />
-    </div>
+        <div className="max-w-4xl mx-auto p-4 pb-24">
+          {/* Welcome Section */}
+          <Card className="mb-6">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="w-16 h-16 bg-earthy-green-100 rounded-full flex items-center justify-center">
+                    <span className="text-2xl">🌱</span>
+                  </div>
+                  <div>
+                    <h1 className="text-2xl font-bold text-gray-900">Welcome to Green Valley Farm Stand</h1>
+                    <p className="text-gray-600">Fresh, locally grown produce available now</p>
+                  </div>
+                </div>
+                <Badge variant="secondary" className="bg-earthy-green-100 text-earthy-green-700">
+                  Open 24/7
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* How to Use */}
+          <Card className="mb-6">
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">How to Use</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                <div className="flex items-center space-x-2">
+                  <span className="bg-earthy-green-100 text-earthy-green-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">1</span>
+                  <span>Browse available products</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="bg-earthy-green-100 text-earthy-green-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">2</span>
+                  <span>Add items to your cart</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="bg-earthy-green-100 text-earthy-green-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">3</span>
+                  <span>Pay and collect your items</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Products Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => {
+              const quantity = getProductQuantity(product.id);
+              return (
+                <Card key={product.id} className="overflow-hidden">
+                  <div className="aspect-video">
+                    <img 
+                      src={product.image} 
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="font-semibold text-lg">{product.name}</h3>
+                      <Badge variant={product.inStock > 0 ? "default" : "destructive"}>
+                        {product.inStock > 0 ? `${product.inStock} left` : 'Out of stock'}
+                      </Badge>
+                    </div>
+                    <p className="text-gray-600 text-sm mb-3">{product.description}</p>
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-2xl font-bold text-earthy-green-600">
+                        ${product.price.toFixed(2)}
+                      </span>
+                      <span className="text-gray-500">per {product.unit}</span>
+                    </div>
+                    
+                    {quantity === 0 ? (
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="w-full">
+                            <Button 
+                              onClick={() => addToCart(product)}
+                              disabled={!isWalletConnected || product.inStock === 0}
+                              className="w-full bg-earthy-green-600 hover:bg-earthy-green-700 disabled:opacity-50"
+                            >
+                              <Plus className="h-4 w-4 mr-2" />
+                              Add to Cart
+                            </Button>
+                          </div>
+                        </TooltipTrigger>
+                        {!isWalletConnected && (
+                          <TooltipContent>
+                            <p>Connect your wallet to add items to cart</p>
+                          </TooltipContent>
+                        )}
+                      </Tooltip>
+                    ) : (
+                      <div className="flex items-center justify-between">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => updateQuantity(product.id, quantity - 1)}
+                          className="h-10 w-10 p-0"
+                        >
+                          <Minus className="h-4 w-4" />
+                        </Button>
+                        <span className="font-semibold text-lg px-4">{quantity}</span>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => updateQuantity(product.id, quantity + 1)}
+                          disabled={quantity >= product.inStock}
+                          className="h-10 w-10 p-0"
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Shopping Cart */}
+        <ShoppingCart 
+          cart={cart}
+          isOpen={isCartOpen}
+          onToggle={() => setIsCartOpen(!isCartOpen)}
+          onUpdateQuantity={updateQuantity}
+          totalPrice={getTotalPrice()}
+        />
+      </div>
+    </TooltipProvider>
   );
 };
 

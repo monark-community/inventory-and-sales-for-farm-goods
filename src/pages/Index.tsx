@@ -38,7 +38,7 @@ const Index = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-earthy-green-300 text-earthy-green-300 hover:bg-earthy-green-300 hover:text-earthy-green-900 px-8 py-4 text-lg"
+                className="border-2 border-white text-white hover:bg-white hover:text-earthy-green-900 px-8 py-4 text-lg"
               >
                 I Want to Buy
               </Button>
@@ -49,45 +49,35 @@ const Index = () => {
 
       {/* Features Section */}
       <section className="w-full bg-earthy-green-600 text-white py-20">
-        <div 
-          className="w-full relative"
-          style={{
-            backgroundImage: `linear-gradient(rgba(86, 130, 95, 0.8), rgba(86, 130, 95, 0.8)), url('https://images.unsplash.com/photo-1589894308598-8ddba0593e91?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">How Bazarius Works</h2>
-              <p className="text-xl text-earthy-green-100">Simple, transparent, and direct</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">How Bazarius Works</h2>
+            <p className="text-xl text-earthy-green-100">Simple, transparent, and direct</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <QrCode className="h-8 w-8 text-earthy-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Scan QR Code</h3>
+              <p className="text-earthy-green-100">Find QR codes at participating farm stands and scan to see available products</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="bg-earthy-green-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <QrCode className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Scan QR Code</h3>
-                <p className="text-earthy-green-100">Find QR codes at participating farm stands and scan to see available products</p>
+            <div className="text-center">
+              <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Wallet className="h-8 w-8 text-earthy-green-600" />
               </div>
-              
-              <div className="text-center">
-                <div className="bg-earthy-green-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Wallet className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Connect Wallet</h3>
-                <p className="text-earthy-green-100">Securely connect your digital wallet for seamless payments</p>
+              <h3 className="text-xl font-semibold mb-2">Connect Wallet</h3>
+              <p className="text-earthy-green-100">Securely connect your digital wallet for seamless payments</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ShoppingCart className="h-8 w-8 text-earthy-green-600" />
               </div>
-              
-              <div className="text-center">
-                <div className="bg-earthy-green-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <ShoppingCart className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Shop Direct</h3>
-                <p className="text-earthy-green-100">Purchase fresh produce directly from farmers with transparent pricing</p>
-              </div>
+              <h3 className="text-xl font-semibold mb-2">Shop Direct</h3>
+              <p className="text-earthy-green-100">Purchase fresh produce directly from farmers with transparent pricing</p>
             </div>
           </div>
         </div>
@@ -107,7 +97,7 @@ const Index = () => {
               </Button>
             </Link>
             <Link to="/buyer-info">
-              <Button size="lg" variant="outline" className="border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-600 hover:text-white px-8 py-4 text-lg">
+              <Button size="lg" variant="outline" className="border-2 border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-600 hover:text-white px-8 py-4 text-lg">
                 <Users className="mr-2 h-5 w-5" />
                 I'm a Buyer
               </Button>
