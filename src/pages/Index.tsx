@@ -35,12 +35,9 @@ const Index = () => {
               </Button>
             </Link>
             <Link to="/buyer-info">
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-2 border-white text-white hover:bg-white hover:text-earthy-green-900 px-8 py-4 text-lg"
-              >
-                I Want to Buy
+              <Button size="lg" variant="outline" className="border-2 border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-600 hover:text-white px-8 py-4 text-lg">
+                <Users className="mr-2 h-5 w-5" />
+                I want to buy
               </Button>
             </Link>
           </div>
