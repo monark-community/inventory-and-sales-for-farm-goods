@@ -30,13 +30,13 @@ const Navigation = () => {
   };
   
   return (
-    <nav className="bg-white shadow-lg border-b border-green-100">
+    <nav className="bg-white shadow-lg border-b border-earthy-green-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <Sprout className="h-8 w-8 text-green-600" />
-              <span className="text-2xl font-bold text-green-800">Bazarius</span>
+              <Sprout className="h-8 w-8 text-earthy-green-600" />
+              <span className="text-2xl font-bold text-earthy-green-800">Bazarius</span>
             </Link>
           </div>
           
@@ -44,7 +44,10 @@ const Navigation = () => {
             <Link to="/qr-scanner">
               <Button 
                 variant={isActive('/qr-scanner') ? 'default' : 'outline'} 
-                className="flex items-center space-x-2"
+                className={isActive('/qr-scanner') 
+                  ? "bg-earthy-green-600 hover:bg-earthy-green-700" 
+                  : "border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-50"
+                }
               >
                 <QrCode className="h-4 w-4" />
                 <span>QR Scan</span>
@@ -52,7 +55,7 @@ const Navigation = () => {
             </Link>
 
             {!isConnected ? (
-              <Button onClick={handleConnectWallet} className="bg-green-600 hover:bg-green-700">
+              <Button onClick={handleConnectWallet} className="bg-earthy-green-600 hover:bg-earthy-green-700">
                 Connect Wallet
               </Button>
             ) : (
@@ -61,7 +64,7 @@ const Navigation = () => {
                   <Button variant="ghost" className="flex items-center space-x-2 px-3">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src="" />
-                      <AvatarFallback className="bg-green-600 text-white">
+                      <AvatarFallback className="bg-earthy-green-600 text-white">
                         {userAlias.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>

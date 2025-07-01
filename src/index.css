@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,20 +36,25 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Custom earthy green colors */
+    --earthy-green-50: 86 30% 95%;
+    --earthy-green-100: 86 30% 85%;
+    --earthy-green-200: 86 30% 75%;
+    --earthy-green-300: 86 30% 65%;
+    --earthy-green-400: 86 30% 55%;
+    --earthy-green-500: 86 30% 45%;
+    --earthy-green-600: 86 30% 35%;
+    --earthy-green-700: 86 30% 25%;
+    --earthy-green-800: 86 30% 15%;
+    --earthy-green-900: 86 30% 10%;
   }
 
   .dark {
@@ -98,4 +104,50 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+  .bg-earthy-green-50 { background-color: hsl(var(--earthy-green-50)); }
+  .bg-earthy-green-100 { background-color: hsl(var(--earthy-green-100)); }
+  .bg-earthy-green-200 { background-color: hsl(var(--earthy-green-200)); }
+  .bg-earthy-green-300 { background-color: hsl(var(--earthy-green-300)); }
+  .bg-earthy-green-400 { background-color: hsl(var(--earthy-green-400)); }
+  .bg-earthy-green-500 { background-color: hsl(var(--earthy-green-500)); }
+  .bg-earthy-green-600 { background-color: hsl(var(--earthy-green-600)); }
+  .bg-earthy-green-700 { background-color: hsl(var(--earthy-green-700)); }
+  .bg-earthy-green-800 { background-color: hsl(var(--earthy-green-800)); }
+  .bg-earthy-green-900 { background-color: hsl(var(--earthy-green-900)); }
+  
+  .text-earthy-green-50 { color: hsl(var(--earthy-green-50)); }
+  .text-earthy-green-100 { color: hsl(var(--earthy-green-100)); }
+  .text-earthy-green-200 { color: hsl(var(--earthy-green-200)); }
+  .text-earthy-green-300 { color: hsl(var(--earthy-green-300)); }
+  .text-earthy-green-400 { color: hsl(var(--earthy-green-400)); }
+  .text-earthy-green-500 { color: hsl(var(--earthy-green-500)); }
+  .text-earthy-green-600 { color: hsl(var(--earthy-green-600)); }
+  .text-earthy-green-700 { color: hsl(var(--earthy-green-700)); }
+  .text-earthy-green-800 { color: hsl(var(--earthy-green-800)); }
+  .text-earthy-green-900 { color: hsl(var(--earthy-green-900)); }
+  
+  .border-earthy-green-50 { border-color: hsl(var(--earthy-green-50)); }
+  .border-earthy-green-100 { border-color: hsl(var(--earthy-green-100)); }
+  .border-earthy-green-200 { border-color: hsl(var(--earthy-green-200)); }
+  .border-earthy-green-300 { border-color: hsl(var(--earthy-green-300)); }
+  .border-earthy-green-400 { border-color: hsl(var(--earthy-green-400)); }
+  .border-earthy-green-500 { border-color: hsl(var(--earthy-green-500)); }
+  .border-earthy-green-600 { border-color: hsl(var(--earthy-green-600)); }
+  .border-earthy-green-700 { border-color: hsl(var(--earthy-green-700)); }
+  .border-earthy-green-800 { border-color: hsl(var(--earthy-green-800)); }
+  .border-earthy-green-900 { border-color: hsl(var(--earthy-green-900)); }
+  
+  .hover\:bg-earthy-green-50:hover { background-color: hsl(var(--earthy-green-50)); }
+  .hover\:bg-earthy-green-100:hover { background-color: hsl(var(--earthy-green-100)); }
+  .hover\:bg-earthy-green-200:hover { background-color: hsl(var(--earthy-green-200)); }
+  .hover\:bg-earthy-green-300:hover { background-color: hsl(var(--earthy-green-300)); }
+  .hover\:bg-earthy-green-400:hover { background-color: hsl(var(--earthy-green-400)); }
+  .hover\:bg-earthy-green-500:hover { background-color: hsl(var(--earthy-green-500)); }
+  .hover\:bg-earthy-green-600:hover { background-color: hsl(var(--earthy-green-600)); }
+  .hover\:bg-earthy-green-700:hover { background-color: hsl(var(--earthy-green-700)); }
+  .hover\:bg-earthy-green-800:hover { background-color: hsl(var(--earthy-green-800)); }
+  .hover\:bg-earthy-green-900:hover { background-color: hsl(var(--earthy-green-900)); }
 }
