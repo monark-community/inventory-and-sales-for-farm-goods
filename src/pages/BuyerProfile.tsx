@@ -187,6 +187,13 @@ const BuyerProfile: React.FC<BuyerProfileProps> = ({ onBack }) => {
                 </div>
               ))}
             </div>
+
+            <Button 
+            variant="ghost"
+            className="flex items-center text-earthy-green-600 hover:text-earthy-green-700"
+          >
+            View all transactions
+          </Button>
           </CardContent>
         </Card>
         
