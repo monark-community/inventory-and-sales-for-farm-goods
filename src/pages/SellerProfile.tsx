@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, Sprout, Upload, Plus, Edit, Trash2, DollarSign, Package, Settings, Image } from 'lucide-react';
+import { ArrowLeft, Sprout, Plus, Edit, Trash2, DollarSign, Package, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -8,6 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import ProductFormModal from '@/components/ProductFormModal';
+import DeleteConfirmationModal from '@/components/DeleteConfirmationModal';
 
 interface Product {
   id: string;
@@ -65,58 +67,51 @@ const SellerProfile: React.FC<SellerProfileProps> = ({ onBack }) => {
     }
   ]);
 
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [newProduct, setNewProduct] = useState({
-    title: '',
-    description: '',
-    image: '',
-    price: '',
-    quantity: '',
-    unit: 'lb',
-    category: 'Vegetables'
-  });
+  const [showProductModal, setShowProductModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+  const [productToDelete, setProductToDelete] = useState<string | null>(null);
 
   const handleShopConfigUpdate = (field: string, value: string) => {
     setShopConfig(prev => ({ ...prev, [field]: value }));
   };
 
   const handleAddProduct = () => {
-    if (!newProduct.title || !newProduct.price || !newProduct.quantity) {
-      toast({
-        title: "Error",
-        description: "Please fill in all required fields",
-        variant: "destructive"
-      });
-      return;
-    }
+    setSelectedProduct(null);
+    setModalMode('add');
+    setShowProductModal(true);
+  };
 
-    const product: Product = {
-      id: Date.now().toString(),
-      title: newProduct.title,
-      description: newProduct.description,
-      image: newProduct.image || 'https://images.unsplash.com/photo-1518569656558-1f25e69d93d7?w=300&h=200&fit=crop',
-      price: parseFloat(newProduct.price),
-      quantity: parseInt(newProduct.quantity),
-      unit: newProduct.unit,
-      category: newProduct.category
-    };
-
-    setProducts([...products, product]);
-    setNewProduct({ title: '', description: '', image: '', price: '', quantity: '', unit: 'lb', category: 'Vegetables' });
-    setShowAddForm(false);
-    
-    toast({
-      title: "Success",
-      description: "Product added successfully"
-    });
+  const handleEditProduct = (product: Product) => {
+    setSelectedProduct(product);
+    setModalMode('edit');
+    setShowProductModal(true);
   };
 
   const handleDeleteProduct = (id: string) => {
-    setProducts(products.filter(p => p.id !== id));
-    toast({
-      title: "Success",
-      description: "Product removed"
-    });
+    setProductToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteProduct = () => {
+    if (productToDelete) {
+      setProducts(products.filter(p => p.id !== productToDelete));
+      toast({
+        title: "Success",
+        description: "Product removed"
+      });
+    }
+    setShowDeleteModal(false);
+    setProductToDelete(null);
+  };
+
+  const handleSaveProduct = (product: Product) => {
+    if (modalMode === 'add') {
+      setProducts([...products, product]);
+    } else {
+      setProducts(products.map(p => p.id === product.id ? product : p));
+    }
   };
 
   const handleSaveShop = () => {
@@ -264,7 +259,7 @@ const SellerProfile: React.FC<SellerProfileProps> = ({ onBack }) => {
                 <CardDescription>Add and manage your products</CardDescription>
               </div>
               <Button 
-                onClick={() => setShowAddForm(!showAddForm)} 
+                onClick={handleAddProduct} 
                 className="bg-earthy-green-600 hover:bg-earthy-green-700"
               >
                 <Plus className="h-4 w-4 mr-2" />
@@ -272,84 +267,6 @@ const SellerProfile: React.FC<SellerProfileProps> = ({ onBack }) => {
               </Button>
             </div>
           </CardHeader>
-          
-          {showAddForm && (
-            <CardContent className="border-t">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                  <Label htmlFor="product-title">Product Title</Label>
-                  <Input
-                    id="product-title"
-                    value={newProduct.title}
-                    onChange={(e) => setNewProduct({...newProduct, title: e.target.value})}
-                    placeholder="e.g., Organic Tomatoes"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="product-price">Price (USDT)</Label>
-                  <Input
-                    id="product-price"
-                    type="number"
-                    step="0.01"
-                    value={newProduct.price}
-                    onChange={(e) => setNewProduct({...newProduct, price: e.target.value})}
-                    placeholder="0.00"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="product-quantity">Quantity</Label>
-                  <Input
-                    id="product-quantity"
-                    type="number"
-                    value={newProduct.quantity}
-                    onChange={(e) => setNewProduct({...newProduct, quantity: e.target.value})}
-                    placeholder="0"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="product-unit">Unit</Label>
-                  <select
-                    id="product-unit"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                    value={newProduct.unit}
-                    onChange={(e) => setNewProduct({...newProduct, unit: e.target.value})}
-                  >
-                    <option value="lb">lb</option>
-                    <option value="kg">kg</option>
-                    <option value="dozen">dozen</option>
-                    <option value="piece">piece</option>
-                  </select>
-                </div>
-                <div className="md:col-span-2">
-                  <Label htmlFor="product-description">Description</Label>
-                  <Textarea
-                    id="product-description"
-                    value={newProduct.description}
-                    onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}
-                    placeholder="Describe your product..."
-                    rows={2}
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <Label htmlFor="product-image">Image URL</Label>
-                  <Input
-                    id="product-image"
-                    value={newProduct.image}
-                    onChange={(e) => setNewProduct({...newProduct, image: e.target.value})}
-                    placeholder="https://example.com/product.jpg"
-                  />
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <Button onClick={handleAddProduct} className="bg-earthy-green-600 hover:bg-earthy-green-700">
-                  Add Product
-                </Button>
-                <Button variant="outline" onClick={() => setShowAddForm(false)}>
-                  Cancel
-                </Button>
-              </div>
-            </CardContent>
-          )}
         </Card>
 
         {/* Products Grid */}
@@ -372,7 +289,11 @@ const SellerProfile: React.FC<SellerProfileProps> = ({ onBack }) => {
                     </CardDescription>
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => handleEditProduct(product)}
+                    >
                       <Edit className="h-4 w-4" />
                     </Button>
                     <Button 
@@ -408,6 +329,24 @@ const SellerProfile: React.FC<SellerProfileProps> = ({ onBack }) => {
           ))}
         </div>
       </div>
+
+      {/* Product Form Modal */}
+      <ProductFormModal
+        isOpen={showProductModal}
+        onClose={() => setShowProductModal(false)}
+        onSave={handleSaveProduct}
+        product={selectedProduct}
+        mode={modalMode}
+      />
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmationModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={confirmDeleteProduct}
+        title="Delete Product"
+        description="Are you sure you want to delete this product? This action cannot be undone."
+      />
     </div>
   );
 };

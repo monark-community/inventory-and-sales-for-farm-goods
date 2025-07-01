@@ -14,6 +14,7 @@ import FarmerInfo from "./pages/FarmerInfo";
 import BuyerInfo from "./pages/BuyerInfo";
 import Preferences from "./pages/Preferences";
 import SellerProfile from "./pages/SellerProfile";
+import BuyerProfile from "./pages/BuyerProfile";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,9 @@ const App = () => {
                 } />
                 <Route path="/seller-profile" element={
                   <SellerProfile onBack={() => window.history.back()} />
+                } />
+                <Route path="/buyer-profile" element={
+                  <BuyerProfile onBack={() => window.history.back()} />
                 } />
                 <Route path="/qr-scanner" element={
                   <QRScanner 

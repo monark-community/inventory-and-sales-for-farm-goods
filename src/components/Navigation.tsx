@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { QrCode, Sprout, ChevronDown, User, Store, LogOut, Settings } from 'lucide-react';
+
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { QrCode, Sprout, ChevronDown, User, LogOut, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -27,6 +28,7 @@ const Navigation = ({
   onModeChange 
 }: NavigationProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [userAlias] = useState('farmer.eth');
   const [userAddress] = useState('0x742d35Cc6Bf4532C1054...');
   
@@ -48,6 +50,23 @@ const Navigation = ({
   const handleModeChange = (newMode: 'buyer' | 'seller') => {
     if (onModeChange) {
       onModeChange(newMode);
+    }
+    
+    // Navigate to appropriate profile page when switching modes
+    if (location.pathname === '/seller-profile' || location.pathname === '/buyer-profile') {
+      if (newMode === 'buyer') {
+        navigate('/buyer-profile');
+      } else {
+        navigate('/seller-profile');
+      }
+    }
+  };
+
+  const handleProfileNavigation = () => {
+    if (mode === 'buyer') {
+      navigate('/buyer-profile');
+    } else {
+      navigate('/seller-profile');
     }
   };
   
@@ -133,12 +152,19 @@ const Navigation = ({
                       <span>Preferences</span>
                     </DropdownMenuItem>
                   </Link>
-                  <Link to="/seller-profile">
-                    <DropdownMenuItem className="flex items-center">
-                      <Sprout className="mr-2 h-4 w-4" />
-                      <span>Seller Profile</span>
-                    </DropdownMenuItem>
-                  </Link>
+                  <DropdownMenuItem onClick={handleProfileNavigation} className="flex items-center">
+                    {mode === 'buyer' ? (
+                      <>
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Buyer Profile</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sprout className="mr-2 h-4 w-4" />
+                        <span>Seller Profile</span>
+                      </>
+                    )}
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="flex items-center">
                     <LogOut className="mr-2 h-4 w-4" />
