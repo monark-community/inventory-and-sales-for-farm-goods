@@ -38,7 +38,7 @@ const Index = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-2 border-white text-white hover:bg-white hover:text-earthy-green-900 px-8 py-4 text-lg"
+                className="border-2 border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-600 hover:text-white px-8 py-4 text-lg bg-transparent"
               >
                 I Want to Buy
               </Button>
@@ -57,28 +57,124 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <QrCode className="h-8 w-8 text-earthy-green-600" />
+              <div className="bg-earthy-green-600 border-2 border-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <QrCode className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Scan QR Code</h3>
               <p className="text-earthy-green-100">Find QR codes at participating farm stands and scan to see available products</p>
             </div>
             
             <div className="text-center">
-              <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Wallet className="h-8 w-8 text-earthy-green-600" />
+              <div className="bg-earthy-green-600 border-2 border-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Wallet className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Connect Wallet</h3>
               <p className="text-earthy-green-100">Securely connect your digital wallet for seamless payments</p>
             </div>
             
             <div className="text-center">
-              <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ShoppingCart className="h-8 w-8 text-earthy-green-600" />
+              <div className="bg-earthy-green-600 border-2 border-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ShoppingCart className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Shop Direct</h3>
               <p className="text-earthy-green-100">Purchase fresh produce directly from farmers with transparent pricing</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Bazarius?</h2>
+            <p className="text-xl text-gray-600">Experience the future of farm-to-table commerce</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="bg-gradient-to-br from-earthy-green-600 to-earthy-green-700 text-white border-0">
+              <CardHeader>
+                <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-4">
+                  <ShoppingCart className="h-6 w-6 text-white" />
+                </div>
+                <CardTitle className="text-white">Your Phone is Your Shopping Cart</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-earthy-green-100">
+                  No need for physical shopping carts or baskets. Add items directly to your digital cart by scanning QR codes at farm stands.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-earthy-green-600 to-earthy-green-700 text-white border-0">
+              <CardHeader>
+                <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-4">
+                  <QrCode className="h-6 w-6 text-white" />
+                </div>
+                <CardTitle className="text-white">Your Digital Farm Stand</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-earthy-green-100">
+                  Transform any location into a farm stand. Farmers can set up QR codes anywhere and start selling immediately.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="w-12 h-12 bg-earthy-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <Shield className="h-6 w-6 text-earthy-green-600" />
+                </div>
+                <CardTitle>Secure Transactions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Blockchain-powered payments ensure secure, transparent transactions between farmers and consumers.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="w-12 h-12 bg-earthy-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <Zap className="h-6 w-6 text-earthy-green-600" />
+                </div>
+                <CardTitle>Instant Payments</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  No waiting for payment processing. Farmers receive payments instantly when customers make purchases.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="w-12 h-12 bg-earthy-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <Users className="h-6 w-6 text-earthy-green-600" />
+                </div>
+                <CardTitle>Direct Connection</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Cut out the middleman. Connect directly with local farmers and support your community.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="w-12 h-12 bg-earthy-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <Sprout className="h-6 w-6 text-earthy-green-600" />
+                </div>
+                <CardTitle>Fresh & Local</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Get the freshest produce directly from local farms. Know exactly where your food comes from.
+                </CardDescription>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -97,7 +193,11 @@ const Index = () => {
               </Button>
             </Link>
             <Link to="/buyer-info">
-              <Button size="lg" variant="outline" className="border-2 border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-600 hover:text-white px-8 py-4 text-lg">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-2 border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-600 hover:text-white px-8 py-4 text-lg bg-transparent"
+              >
                 <Users className="mr-2 h-5 w-5" />
                 I'm a Buyer
               </Button>
