@@ -19,13 +19,15 @@ interface ShoppingCartProps {
   onUpdateQuantity: (id: string, quantity: number) => void;
   onRemoveItem: (id: string) => void;
   onCheckout: () => void;
+  currency?: string;
 }
 
 const ShoppingCart: React.FC<ShoppingCartProps> = ({
   items,
   onUpdateQuantity,
   onRemoveItem,
-  onCheckout
+  onCheckout,
+  currency = 'USDT'
 }) => {
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalCost = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -33,7 +35,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
   if (totalItems === 0) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50">
+    <div className="fixed bottom-0 left-0 right-0 z-50 pb-16">
       <Drawer>
         <DrawerTrigger asChild>
           <div className="bg-earthy-green-600 text-white px-4 py-3 mx-4 mb-4 rounded-lg shadow-lg cursor-pointer hover:bg-earthy-green-700 transition-colors">
@@ -46,7 +48,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
                 </Badge>
               </div>
               <div className="text-lg font-bold">
-                ${totalCost.toFixed(2)}
+                {totalCost.toFixed(2)} {currency}
               </div>
             </div>
           </div>
@@ -65,7 +67,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
                 />
                 <div className="flex-1">
                   <h4 className="font-semibold text-sm">{item.name}</h4>
-                  <p className="text-xs text-gray-600">${item.price.toFixed(2)} per {item.unit}</p>
+                  <p className="text-xs text-gray-600">{item.price.toFixed(2)} {currency} per {item.unit}</p>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Button
@@ -87,7 +89,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
                   </Button>
                 </div>
                 <div className="text-sm font-semibold">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  {(item.price * item.quantity).toFixed(2)} {currency}
                 </div>
                 <Button
                   size="sm"
@@ -103,7 +105,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
               <div className="flex justify-between items-center mb-4">
                 <span className="text-lg font-semibold">Total:</span>
                 <span className="text-lg font-bold text-earthy-green-600">
-                  ${totalCost.toFixed(2)}
+                  {totalCost.toFixed(2)} {currency}
                 </span>
               </div>
               <Button

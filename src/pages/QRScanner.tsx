@@ -20,6 +20,9 @@ const QRScanner = ({ isWalletConnected = false, onConnectWallet }: QRScannerProp
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  // Stand configuration - in a real app this would come from the blockchain/database
+  const standCurrency = 'USDT'; // This would be configurable per stand
+
   const products = [
     {
       id: 1,
@@ -28,7 +31,7 @@ const QRScanner = ({ isWalletConnected = false, onConnectWallet }: QRScannerProp
       unit: 'lb',
       inStock: 12,
       description: 'Fresh heirloom tomatoes, grown without pesticides',
-      image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=300&h=200&fit=crop'
+      image: 'https://images.unsplash.com/photo-1546470427-e4c0de0b2b5e?w=300&h=200&fit=crop'
     },
     {
       id: 2,
@@ -64,7 +67,7 @@ const QRScanner = ({ isWalletConnected = false, onConnectWallet }: QRScannerProp
       unit: 'bag',
       inStock: 10,
       description: 'Fresh spinach, kale, and arugula blend',
-      image: 'https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=300&h=200&fit=crop'
+      image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=300&h=200&fit=crop'
     }
   ];
 
@@ -117,7 +120,7 @@ const QRScanner = ({ isWalletConnected = false, onConnectWallet }: QRScannerProp
 
   const handleCheckout = () => {
     console.log('Proceeding to checkout with cart:', cart);
-    // TODO: Implement checkout logic
+    // TODO: Implement crypto checkout logic
   };
 
   if (showNearbyShops) {
@@ -210,7 +213,7 @@ const QRScanner = ({ isWalletConnected = false, onConnectWallet }: QRScannerProp
                     <p className="text-gray-600 text-sm mb-3">{product.description}</p>
                     <div className="flex justify-between items-center mb-4">
                       <span className="text-2xl font-bold text-earthy-green-600">
-                        ${product.price.toFixed(2)}
+                        {product.price.toFixed(2)} {standCurrency}
                       </span>
                       <span className="text-gray-500">per {product.unit}</span>
                     </div>
@@ -270,6 +273,7 @@ const QRScanner = ({ isWalletConnected = false, onConnectWallet }: QRScannerProp
           onUpdateQuantity={updateQuantity}
           onRemoveItem={removeFromCart}
           onCheckout={handleCheckout}
+          currency={standCurrency}
         />
       </div>
     </TooltipProvider>

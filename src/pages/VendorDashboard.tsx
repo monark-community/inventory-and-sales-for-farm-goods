@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Plus, Edit, Trash2, DollarSign, Package } from 'lucide-react';
+import { Plus, Edit, Trash2, DollarSign, Package, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -20,6 +20,7 @@ interface Product {
 
 const VendorDashboard = () => {
   const { toast } = useToast();
+  const [acceptedCurrency, setAcceptedCurrency] = useState('USDT');
   const [products, setProducts] = useState<Product[]>([
     {
       id: '1',
@@ -55,6 +56,8 @@ const VendorDashboard = () => {
     unit: 'lb',
     category: 'Vegetables'
   });
+
+  const cryptoCurrencies = ['USDT', 'USDC', 'ETH', 'BTC', 'DAI'];
 
   const handleAddProduct = () => {
     if (!newProduct.name || !newProduct.price || !newProduct.quantity) {
@@ -104,6 +107,35 @@ const VendorDashboard = () => {
           <p className="text-green-600">Manage your farm products and inventory</p>
         </div>
 
+        {/* Stand Configuration */}
+        <Card className="mb-8">
+          <CardHeader>
+            <div className="flex items-center space-x-2">
+              <Settings className="h-5 w-5" />
+              <CardTitle>Stand Configuration</CardTitle>
+            </div>
+            <CardDescription>Configure your stand settings and accepted payments</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="currency">Accepted Cryptocurrency</Label>
+                <select
+                  id="currency"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  value={acceptedCurrency}
+                  onChange={(e) => setAcceptedCurrency(e.target.value)}
+                >
+                  {cryptoCurrencies.map(currency => (
+                    <option key={currency} value={currency}>{currency}</option>
+                  ))}
+                </select>
+                <p className="text-xs text-gray-500 mt-1">Choose the cryptocurrency you want to accept for payments</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
@@ -132,7 +164,7 @@ const VendorDashboard = () => {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">${totalValue.toFixed(2)}</div>
+              <div className="text-2xl font-bold">{totalValue.toFixed(2)} {acceptedCurrency}</div>
             </CardContent>
           </Card>
         </div>
@@ -165,7 +197,7 @@ const VendorDashboard = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="price">Price</Label>
+                  <Label htmlFor="price">Price ({acceptedCurrency})</Label>
                   <Input
                     id="price"
                     type="number"
@@ -256,7 +288,7 @@ const VendorDashboard = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm text-gray-600">Price:</span>
-                    <span className="font-semibold">${product.price.toFixed(2)}/{product.unit}</span>
+                    <span className="font-semibold">{product.price.toFixed(2)} {acceptedCurrency}/{product.unit}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm text-gray-600">Available:</span>
@@ -266,7 +298,7 @@ const VendorDashboard = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm text-gray-600">Value:</span>
-                    <span className="font-semibold">${(product.price * product.quantity).toFixed(2)}</span>
+                    <span className="font-semibold">{(product.price * product.quantity).toFixed(2)} {acceptedCurrency}</span>
                   </div>
                 </div>
               </CardContent>
