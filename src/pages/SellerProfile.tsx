@@ -128,7 +128,7 @@ const SellerProfile: React.FC<SellerProfileProps> = ({ onBack }) => {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-200 p-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="max-w-[72rem] p-4 mx-auto flex items-center justify-between">
           <Button 
             variant="ghost" 
             onClick={onBack}
@@ -150,7 +150,7 @@ const SellerProfile: React.FC<SellerProfileProps> = ({ onBack }) => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto p-4 space-y-6">
+      <div className="max-w-[72rem] p-4 mx-auto p-4 space-y-6">
         {/* Shop Configuration */}
         <Card>
           <CardHeader>
