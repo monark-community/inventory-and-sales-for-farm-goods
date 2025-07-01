@@ -9,6 +9,9 @@ import Navigation from "./components/Navigation";
 import Index from "./pages/Index";
 import VendorDashboard from "./pages/VendorDashboard";
 import QRScanner from "./pages/QRScanner";
+import QRLanding from "./pages/QRLanding";
+import Shop from "./pages/Shop";
+import NearbyShops from "./components/NearbyShops";
 import NotFound from "./pages/NotFound";
 import FarmerInfo from "./pages/FarmerInfo";
 import BuyerInfo from "./pages/BuyerInfo";
@@ -67,6 +70,14 @@ const App = () => {
                     onConnectWallet={handleConnectWallet}
                   />
                 } />
+                <Route path="/qr-landing" element={<QRLanding />} />
+                <Route path="/shop" element={
+                  <Shop 
+                    isWalletConnected={isWalletConnected}
+                    onConnectWallet={handleConnectWallet}
+                  />
+                } />
+                <Route path="/nearby-shops" element={<NearbyShops />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
