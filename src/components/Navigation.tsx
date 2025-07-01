@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { QrCode, Sprout, ChevronDown, User, Store, LogOut } from 'lucide-react';
+import { QrCode, Sprout, ChevronDown, User, Store, LogOut, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -120,13 +119,26 @@ const Navigation = ({
                         </SelectItem>
                         <SelectItem value="seller">
                           <div className="flex items-center">
-                            <Store className="mr-2 h-4 w-4" />
-                            Seller Dashboard
+                            <Sprout className="mr-2 h-4 w-4" />
+                            Seller Profile
                           </div>
                         </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
+                  <DropdownMenuSeparator />
+                  <Link to="/preferences">
+                    <DropdownMenuItem className="flex items-center">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Preferences</span>
+                    </DropdownMenuItem>
+                  </Link>
+                  <Link to="/seller-profile">
+                    <DropdownMenuItem className="flex items-center">
+                      <Sprout className="mr-2 h-4 w-4" />
+                      <span>Seller Profile</span>
+                    </DropdownMenuItem>
+                  </Link>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="flex items-center">
                     <LogOut className="mr-2 h-4 w-4" />

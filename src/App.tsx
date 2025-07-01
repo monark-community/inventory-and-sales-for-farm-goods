@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -13,6 +12,8 @@ import QRScanner from "./pages/QRScanner";
 import NotFound from "./pages/NotFound";
 import FarmerInfo from "./pages/FarmerInfo";
 import BuyerInfo from "./pages/BuyerInfo";
+import Preferences from "./pages/Preferences";
+import SellerProfile from "./pages/SellerProfile";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,15 @@ const App = () => {
                 <Route path="/vendor" element={<VendorDashboard />} />
                 <Route path="/farmer-info" element={<FarmerInfo />} />
                 <Route path="/buyer-info" element={<BuyerInfo />} />
+                <Route path="/preferences" element={
+                  <Preferences 
+                    onBack={() => window.history.back()} 
+                    mode={userMode}
+                  />
+                } />
+                <Route path="/seller-profile" element={
+                  <SellerProfile onBack={() => window.history.back()} />
+                } />
                 <Route path="/qr-scanner" element={
                   <QRScanner 
                     isWalletConnected={isWalletConnected}
