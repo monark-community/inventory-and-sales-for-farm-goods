@@ -49,7 +49,6 @@ const App = () => {
               />
               <Routes>
                 <Route path="/" element={<Index />} />
-                <Route path="/vendor" element={<VendorDashboard />} />
                 <Route path="/farmer-info" element={<FarmerInfo />} />
                 <Route path="/buyer-info" element={<BuyerInfo />} />
                 <Route path="/preferences" element={
