@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sprout, ShoppingCart, QrCode, Wallet, Shield, Zap } from 'lucide-react';
+import { Sprout, ShoppingCart, QrCode, Wallet, Shield, Zap, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Footer from '@/components/Footer';
