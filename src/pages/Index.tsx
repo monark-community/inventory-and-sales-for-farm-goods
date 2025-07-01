@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sprout, Users, ShoppingCart, QrCode, Wallet, Shield, Zap } from 'lucide-react';
+import { Sprout, ShoppingCart, QrCode, Wallet, Shield, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Footer from '@/components/Footer';
@@ -36,8 +36,8 @@ const Index = () => {
             </Link>
             <Link to="/buyer-info">
               <Button size="lg" variant="outline" className="border-2 border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-600 hover:text-white px-8 py-4 text-lg">
-                <Users className="mr-2 h-5 w-5" />
-                I want to buy
+                <Sprout className="mr-2 h-5 w-5" />
+                Setup a stand
               </Button>
             </Link>
           </div>
@@ -53,6 +53,15 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+             <div className="text-center">
+              <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Wallet className="h-8 w-8 text-earthy-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Connect Wallet</h3>
+              <p className="text-earthy-green-100">Securely connect your digital wallet for seamless payments</p>
+            </div>
+            
             <div className="text-center">
               <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <QrCode className="h-8 w-8 text-earthy-green-600" />
@@ -63,17 +72,9 @@ const Index = () => {
             
             <div className="text-center">
               <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Wallet className="h-8 w-8 text-earthy-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Connect Wallet</h3>
-              <p className="text-earthy-green-100">Securely connect your digital wallet for seamless payments</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <ShoppingCart className="h-8 w-8 text-earthy-green-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Shop Direct</h3>
+              <h3 className="text-xl font-semibold mb-2">Support Local Farmers</h3>
               <p className="text-earthy-green-100">Purchase fresh produce directly from farmers with transparent pricing</p>
             </div>
           </div>
@@ -87,16 +88,16 @@ const Index = () => {
           <p className="text-xl text-gray-600 mb-8">Whether you're a farmer or a conscious consumer, Bazarius connects you directly.</p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/farmer-info">
+            <Link to="/buyer-info">
               <Button size="lg" className="bg-earthy-green-600 hover:bg-earthy-green-700 text-white px-8 py-4 text-lg">
                 <Sprout className="mr-2 h-5 w-5" />
-                I'm a Farmer
+                I'm a Buyer
               </Button>
             </Link>
-            <Link to="/buyer-info">
+            <Link to="/farmer-info">
               <Button size="lg" variant="outline" className="border-2 border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-600 hover:text-white px-8 py-4 text-lg">
                 <Users className="mr-2 h-5 w-5" />
-                I'm a Buyer
+                I'm a Farmer
               </Button>
             </Link>
           </div>
