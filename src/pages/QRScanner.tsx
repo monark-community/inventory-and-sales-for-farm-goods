@@ -1,15 +1,21 @@
 
 import React, { useState } from 'react';
-import { QrCode, ArrowLeft, Plus, Minus } from 'lucide-react';
+import { QrCode, ArrowLeft, Plus, Minus, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import ShoppingCart from '@/components/ShoppingCart';
+import NearbyShops from '@/components/NearbyShops';
 
-const QRScanner = () => {
+interface QRScannerProps {
+  isWalletConnected?: boolean;
+  onConnectWallet?: () => void;
+}
+
+const QRScanner = ({ isWalletConnected = false, onConnectWallet }: QRScannerProps) => {
   const [isScanned, setIsScanned] = useState(false);
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const [showNearbyShops, setShowNearbyShops] = useState(false);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -21,7 +27,7 @@ const QRScanner = () => {
       unit: 'lb',
       inStock: 12,
       description: 'Fresh heirloom tomatoes, grown without pesticides',
-      image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=300&h=200&fit=crop'
+      image: 'https://images.unsplash.com/photo-1546470427-e5ecf92c8d5e?w=300&h=200&fit=crop'
     },
     {
       id: 2,
@@ -57,7 +63,7 @@ const QRScanner = () => {
       unit: 'bag',
       inStock: 10,
       description: 'Fresh spinach, kale, and arugula blend',
-      image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=300&h=200&fit=crop'
+      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&h=200&fit=crop'
     }
   ];
 
@@ -66,7 +72,9 @@ const QRScanner = () => {
   };
 
   const handleConnectWallet = () => {
-    setIsWalletConnected(true);
+    if (onConnectWallet) {
+      onConnectWallet();
+    }
   };
 
   const addToCart = (product, quantity = 1) => {
@@ -111,6 +119,10 @@ const QRScanner = () => {
     // TODO: Implement checkout logic
   };
 
+  if (showNearbyShops) {
+    return <NearbyShops onBack={() => setShowNearbyShops(false)} />;
+  }
+
   if (!isScanned) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-earthy-green-50 to-earthy-green-100">
@@ -118,13 +130,24 @@ const QRScanner = () => {
           <div className="bg-white rounded-full p-8 shadow-lg mb-8 mx-auto w-32 h-32 flex items-center justify-center">
             <QrCode className="h-16 w-16 text-earthy-green-600" />
           </div>
-          <Button 
-            onClick={handleScanClick}
-            size="lg"
-            className="bg-earthy-green-600 hover:bg-earthy-green-700 text-white px-8 py-4"
-          >
-            Scan QR Code
-          </Button>
+          <div className="space-y-4">
+            <Button 
+              onClick={handleScanClick}
+              size="lg"
+              className="w-full bg-earthy-green-600 hover:bg-earthy-green-700 text-white px-8 py-4"
+            >
+              Scan QR Code
+            </Button>
+            <Button 
+              onClick={() => setShowNearbyShops(true)}
+              variant="outline"
+              size="lg"
+              className="w-full border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-50"
+            >
+              <MapPin className="h-4 w-4 mr-2" />
+              Browse Nearby Shops
+            </Button>
+          </div>
         </div>
       </div>
     );
@@ -133,7 +156,21 @@ const QRScanner = () => {
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-gray-50">
-        {/* Header */}
+        {/* Header with Stand Image */}
+        <div 
+          className="h-48 bg-cover bg-center relative"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1472396961693-142e6e269027?w=800&h=300&fit=crop)'
+          }}
+        >
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute bottom-4 left-4 text-white">
+            <h1 className="text-3xl font-bold">Green Valley Farm Stand</h1>
+            <p className="text-lg opacity-90">Fresh, locally grown produce</p>
+          </div>
+        </div>
+
+        {/* Navigation Header */}
         <div className="bg-white shadow-sm border-b border-gray-200 p-4">
           <div className="max-w-4xl mx-auto flex items-center justify-between">
             <Button 
@@ -149,21 +186,6 @@ const QRScanner = () => {
         </div>
 
         <div className="max-w-4xl mx-auto p-4 pb-24">
-          {/* Welcome Section */}
-          <Card className="mb-6">
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-earthy-green-100 rounded-full flex items-center justify-center">
-                  <span className="text-2xl">🌱</span>
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-900">Welcome to Green Valley Farm Stand</h1>
-                  <p className="text-gray-600">Fresh, locally grown produce available now</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* How to Use */}
           <Card className="mb-6">
             <CardContent className="p-6">

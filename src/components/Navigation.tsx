@@ -14,21 +14,41 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-const Navigation = () => {
+interface NavigationProps {
+  isWalletConnected?: boolean;
+  onConnectWallet?: () => void;
+  mode?: 'buyer' | 'seller';
+  onModeChange?: (mode: 'buyer' | 'seller') => void;
+}
+
+const Navigation = ({ 
+  isWalletConnected = false, 
+  onConnectWallet, 
+  mode = 'buyer', 
+  onModeChange 
+}: NavigationProps) => {
   const location = useLocation();
-  const [isConnected, setIsConnected] = useState(false);
   const [userAlias] = useState('farmer.eth');
-  const [walletAddress] = useState('0x1234...5678');
-  const [mode, setMode] = useState('buyer'); // 'buyer' or 'seller'
   
   const isActive = (path: string) => location.pathname === path;
 
   const handleConnectWallet = () => {
-    setIsConnected(true);
+    if (onConnectWallet) {
+      onConnectWallet();
+    }
   };
 
   const handleLogout = () => {
-    setIsConnected(false);
+    // Reset to disconnected state through parent component
+    if (onConnectWallet) {
+      onConnectWallet();
+    }
+  };
+
+  const handleModeChange = (newMode: 'buyer' | 'seller') => {
+    if (onModeChange) {
+      onModeChange(newMode);
+    }
   };
   
   return (
@@ -36,14 +56,14 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to={isConnected ? "/qr-scanner" : "/"} className="flex items-center space-x-2">
+            <Link to={isWalletConnected ? "/qr-scanner" : "/"} className="flex items-center space-x-2">
               <Sprout className="h-8 w-8 text-earthy-green-600" />
               <span className="text-2xl font-bold text-earthy-green-800">Bazarius</span>
             </Link>
           </div>
           
           <div className="flex items-center space-x-4">
-            {isConnected && (
+            {isWalletConnected && (
               <Link to="/qr-scanner">
                 <Button 
                   variant={isActive('/qr-scanner') ? 'default' : 'outline'} 
@@ -58,7 +78,7 @@ const Navigation = () => {
               </Link>
             )}
 
-            {!isConnected ? (
+            {!isWalletConnected ? (
               <Button onClick={handleConnectWallet} className="bg-earthy-green-600 hover:bg-earthy-green-700">
                 Connect Wallet
               </Button>
@@ -72,18 +92,14 @@ const Navigation = () => {
                         {userAlias.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="flex flex-col items-start">
-                      <span className="text-sm font-medium">{userAlias}</span>
-                      <span className="text-xs text-gray-500">{walletAddress}</span>
-                    </div>
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuLabel>Profile Mode</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <div className="px-2 py-1">
-                    <Select value={mode} onValueChange={setMode}>
+                    <Select value={mode} onValueChange={handleModeChange}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select mode" />
                       </SelectTrigger>

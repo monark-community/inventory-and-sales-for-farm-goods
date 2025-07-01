@@ -1,172 +1,193 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Sprout, Users, QrCode, BarChart, Clock, Shield, ArrowRight } from 'lucide-react';
+import { Sprout, TrendingUp, Users, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Footer from '@/components/Footer';
 
 const FarmerInfo = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-earthy-green-50 to-earthy-green-100">
+    <div className="min-h-screen bg-gradient-to-br from-earthy-green-50 via-white to-earthy-green-50">
       {/* Hero Section */}
-      <div className="bg-earthy-green-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center">
-            <Users className="h-16 w-16 text-earthy-green-100 mx-auto mb-6" />
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Sell Your Farm Produce 24/7
-            </h1>
-            <p className="text-xl text-earthy-green-100 mb-8 max-w-3xl mx-auto">
-              Transform your farm stand into an automated marketplace. No staff needed, 
-              just place your products and let customers shop anytime.
-            </p>
-            <Button size="lg" className="bg-white text-earthy-green-600 hover:bg-gray-100">
-              Connect Wallet to Get Started
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
+      <div className="bg-gradient-to-r from-earthy-green-600 to-earthy-green-700 text-white py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Sprout className="h-16 w-16 mx-auto mb-6 text-earthy-green-200" />
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            Grow Your Farm Business
+          </h1>
+          <p className="text-xl md:text-2xl text-earthy-green-100 mb-8 max-w-2xl mx-auto">
+            Connect directly with customers and increase your sales with our innovative blockchain-powered marketplace.
+          </p>
+          <Button 
+            size="lg" 
+            variant="secondary"
+            className="bg-white text-earthy-green-700 hover:bg-earthy-green-50 px-8 py-3 text-lg"
+          >
+            Join Bazarius
+          </Button>
         </div>
       </div>
 
       {/* Benefits Section */}
-      <div className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Farmers Choose Bazarius
+      <div className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Why Partner With Us?
             </h2>
-            <p className="text-xl text-gray-600">
-              Increase your revenue while reducing operational costs
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Join a growing network of farmers who are revolutionizing how they sell their produce.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card>
-              <CardHeader>
-                <Clock className="h-12 w-12 text-earthy-green-600 mb-4" />
-                <CardTitle>24/7 Sales</CardTitle>
-                <CardDescription>
-                  Your farm stand stays open all day, every day. Customers can shop 
-                  at their convenience, increasing your potential sales window.
-                </CardDescription>
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="bg-earthy-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                  <TrendingUp className="h-8 w-8 text-earthy-green-600" />
+                </div>
+                <CardTitle className="text-xl">Increase Sales</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription className="text-center text-base">
+                  Reach more customers and boost your revenue with our easy-to-use QR code system that brings customers right to your stand.
+                </CardDescription>
+              </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <Shield className="h-12 w-12 text-earthy-green-500 mb-4" />
-                <CardTitle>Secure Payments</CardTitle>
-                <CardDescription>
-                  All transactions are handled through blockchain technology. 
-                  No cash handling, no payment disputes, just instant transfers.
-                </CardDescription>
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="bg-earthy-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                  <Users className="h-8 w-8 text-earthy-green-600" />
+                </div>
+                <CardTitle className="text-xl">Direct Customer Connection</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription className="text-center text-base">
+                  Build lasting relationships with your customers by selling directly to them without intermediaries taking a cut.
+                </CardDescription>
+              </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <BarChart className="h-12 w-12 text-earthy-green-700 mb-4" />
-                <CardTitle>Real-time Analytics</CardTitle>
-                <CardDescription>
-                  Track your sales, inventory, and customer patterns from anywhere. 
-                  Make data-driven decisions to optimize your business.
-                </CardDescription>
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="bg-earthy-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                  <Globe className="h-8 w-8 text-earthy-green-600" />
+                </div>
+                <CardTitle className="text-xl">Blockchain Transparency</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription className="text-center text-base">
+                  Provide complete transparency about your farming practices and build trust with customers through blockchain verification.
+                </CardDescription>
+              </CardContent>
             </Card>
           </div>
         </div>
       </div>
 
-      {/* How It Works */}
-      <div className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            How Bazarius Works for Farmers
-          </h2>
+      {/* How It Works Section */}
+      <div className="bg-gray-50 py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Getting Started is Simple
+            </h2>
+            <p className="text-xl text-gray-600">
+              Join our platform and start selling in just a few steps
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="flex items-start space-x-4">
-                <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-3 font-bold text-lg min-w-[3rem] text-center">1</div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Set Up Your Digital Stand</h3>
-                  <p className="text-gray-600">
-                    Connect your wallet and create your vendor profile. Add your products, 
-                    set prices, and upload photos. It takes less than 10 minutes.
-                  </p>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              {
+                step: "01",
+                title: "Sign Up",
+                description: "Create your farmer profile and connect your digital wallet to get started."
+              },
+              {
+                step: "02",
+                title: "List Products",
+                description: "Add your fresh produce with photos, descriptions, and pricing information."
+              },
+              {
+                step: "03",
+                title: "Generate QR Code",
+                description: "Get your unique QR code to display at your farm stand for customers to scan."
+              },
+              {
+                step: "04",
+                title: "Start Selling",
+                description: "Watch as customers discover your products and place orders directly through their phones."
+              }
+            ].map((item, index) => (
+              <div key={index} className="text-center">
+                <div className="bg-earthy-green-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                  {item.step}
                 </div>
+                <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
               </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-3 font-bold text-lg min-w-[3rem] text-center">2</div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Display Your QR Code</h3>
-                  <p className="text-gray-600">
-                    Print and display your unique QR code at your farm stand. 
-                    This is how customers will access your digital marketplace.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-3 font-bold text-lg min-w-[3rem] text-center">3</div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Stock and Go</h3>
-                  <p className="text-gray-600">
-                    Keep your physical products stocked and let the system handle the rest. 
-                    Customers scan, shop, and pay automatically.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-3 font-bold text-lg min-w-[3rem] text-center">4</div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Monitor and Manage</h3>
-                  <p className="text-gray-600">
-                    Use your dashboard to track sales, update inventory, and manage 
-                    your business from anywhere with an internet connection.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-br from-earthy-green-400 to-earthy-green-600 rounded-lg p-8 text-white">
-              <QrCode className="h-32 w-32 mx-auto mb-6 opacity-80" />
-              <h3 className="text-2xl font-bold text-center mb-4">
-                Your Digital Farm Stand
-              </h3>
-              <p className="text-center text-earthy-green-100">
-                One QR code connects your physical farm stand to unlimited 
-                digital possibilities
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="py-16 bg-earthy-green-600">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <Sprout className="h-16 w-16 text-earthy-green-100 mx-auto mb-6" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ready to Transform Your Farm Business?
-          </h2>
-          <p className="text-xl text-earthy-green-100 mb-8">
-            Join hundreds of farmers already using Bazarius to increase their revenue
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-earthy-green-600 hover:bg-gray-100">
-              Connect Wallet & Start Selling
-            </Button>
-            <Link to="/qr-scanner">
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-earthy-green-600">
-                See How It Works
+      {/* Features Section */}
+      <div className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Powerful Features for Farmers
+            </h2>
+            <p className="text-xl text-gray-600">
+              Everything you need to manage and grow your farm business
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <div className="flex items-start space-x-4">
+                <div className="bg-earthy-green-600 rounded-full p-2 flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-sm font-bold">✓</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Real-time Inventory Management</h3>
+                  <p className="text-gray-600">Keep track of your stock levels and update availability instantly as products sell.</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-4">
+                <div className="bg-earthy-green-600 rounded-full p-2 flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-sm font-bold">✓</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Secure Payments</h3>
+                  <p className="text-gray-600">Receive payments instantly and securely through blockchain technology.</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-4">
+                <div className="bg-earthy-green-600 rounded-full p-2 flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-sm font-bold">✓</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Customer Analytics</h3>
+                  <p className="text-gray-600">Understand your customers better with detailed sales and preference analytics.</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-earthy-green-50 rounded-lg p-8 text-center">
+              <Sprout className="h-24 w-24 text-earthy-green-600 mx-auto mb-6" />
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Grow?</h3>
+              <p className="text-gray-600 mb-6">Join hundreds of farmers already using Bazarius to increase their sales and connect with customers.</p>
+              <Button className="bg-earthy-green-600 hover:bg-earthy-green-700">
+                Get Started Today
               </Button>
-            </Link>
+            </div>
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

@@ -1,227 +1,158 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ShoppingCart, QrCode, Smartphone, Leaf, MapPin, Clock, ArrowRight } from 'lucide-react';
+import { QrCode, ShoppingCart, Shield, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Footer from '@/components/Footer';
 
 const BuyerInfo = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-earthy-green-50 to-earthy-green-100">
+    <div className="min-h-screen bg-gradient-to-br from-earthy-green-50 via-white to-earthy-green-50">
       {/* Hero Section */}
-      <div className="bg-earthy-green-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center">
-            <ShoppingCart className="h-16 w-16 text-earthy-green-100 mx-auto mb-6" />
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Shop Fresh, Local Produce Anytime
-            </h1>
-            <p className="text-xl text-earthy-green-100 mb-8 max-w-3xl mx-auto">
-              Discover farm-fresh products from local farmers. Simply scan a QR code 
-              at any participating farm stand and shop instantly.
-            </p>
-            <Link to="/qr-scanner">
-              <Button size="lg" className="bg-white text-earthy-green-600 hover:bg-gray-100">
-                Try QR Scanner Demo
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* Benefits Section */}
-      <div className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Shop with Bazarius?
-            </h2>
-            <p className="text-xl text-gray-600">
-              The future of farm-to-table shopping is here
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card>
-              <CardHeader>
-                <Leaf className="h-12 w-12 text-earthy-green-600 mb-4" />
-                <CardTitle>Farm Fresh Quality</CardTitle>
-                <CardDescription>
-                  Get the freshest produce directly from local farmers. 
-                  No middlemen, no long supply chains, just pure freshness.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <Clock className="h-12 w-12 text-earthy-green-500 mb-4" />
-                <CardTitle>Shop Anytime</CardTitle>
-                <CardDescription>
-                  Farm stands are open 24/7 with our self-serve technology. 
-                  Shop when it's convenient for you, not just during market hours.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <MapPin className="h-12 w-12 text-earthy-green-700 mb-4" />
-                <CardTitle>Support Local</CardTitle>
-                <CardDescription>
-                  Every purchase directly supports your local farming community. 
-                  Build relationships with farmers in your area.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-        </div>
-      </div>
-
-      {/* How It Works */}
-      <div className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            How to Shop with Bazarius
-          </h2>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="bg-gradient-to-br from-earthy-green-400 to-earthy-green-600 rounded-lg p-8 text-white">
-              <Smartphone className="h-32 w-32 mx-auto mb-6 opacity-80" />
-              <h3 className="text-2xl font-bold text-center mb-4">
-                Your Phone is Your Shopping Cart
-              </h3>
-              <p className="text-center text-earthy-green-100">
-                No apps to download, no accounts to create. Just scan and shop 
-                using your mobile wallet.
-              </p>
-            </div>
-
-            <div className="space-y-8">
-              <div className="flex items-start space-x-4">
-                <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-3 font-bold text-lg min-w-[3rem] text-center">1</div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Find a Farm Stand</h3>
-                  <p className="text-gray-600">
-                    Look for participating Bazarius farm stands in your area. 
-                    They're marked with our distinctive QR code displays.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-3 font-bold text-lg min-w-[3rem] text-center">2</div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Scan the QR Code</h3>
-                  <p className="text-gray-600">
-                    Use your phone's camera to scan the QR code. This instantly 
-                    opens the farmer's digital marketplace in your browser.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-3 font-bold text-lg min-w-[3rem] text-center">3</div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Browse & Select</h3>
-                  <p className="text-gray-600">
-                    View available products, prices, and details. Add items to your 
-                    cart just like any online store.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p-3 font-bold text-lg min-w-[3rem] text-center">4</div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Pay with Your Wallet</h3>
-                  <p className="text-gray-600">
-                    Complete your purchase using your connected wallet. 
-                    Payment is instant and secure through blockchain technology.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-earthy-green-100 text-earthy-green-600 rounded-full p3 font-bold text-lg min-w-[3rem] text-center">5</div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">Collect Your Items</h3>
-                  <p className="text-gray-600">
-                    Take your purchased items from the stand. The inventory 
-                    updates automatically to prevent overselling.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="bg-gradient-to-r from-earthy-green-600 to-earthy-green-700 text-white py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <ShoppingCart className="h-16 w-16 mx-auto mb-6 text-earthy-green-200" />
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            Shop Fresh, Shop Local
+          </h1>
+          <p className="text-xl md:text-2xl text-earthy-green-100 mb-8 max-w-2xl mx-auto">
+            Discover the freshest produce from local farmers with our innovative QR-based shopping experience.
+          </p>
+          <Button 
+            size="lg" 
+            variant="secondary"
+            className="bg-white text-earthy-green-700 hover:bg-earthy-green-50 px-8 py-3 text-lg"
+          >
+            Start Shopping
+          </Button>
         </div>
       </div>
 
       {/* Features Section */}
-      <div className="py-16 bg-gradient-to-r from-earthy-green-100 to-earthy-green-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Shopping Features
-          </h2>
+      <div className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Why Choose Bazarius?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Experience the future of farm-to-table shopping with our cutting-edge platform.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-lg p-6 shadow-lg">
-              <QrCode className="h-12 w-12 text-earthy-green-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Instant Access</h3>
-              <p className="text-gray-600">
-                No apps to download or accounts to create. Your phone's camera 
-                is all you need to start shopping.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="bg-earthy-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                  <QrCode className="h-8 w-8 text-earthy-green-600" />
+                </div>
+                <CardTitle className="text-xl">Instant QR Shopping</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-center text-base">
+                  Simply scan a QR code at any participating farm stand to instantly browse their fresh inventory and make purchases.
+                </CardDescription>
+              </CardContent>
+            </Card>
 
-            <div className="bg-white rounded-lg p-6 shadow-lg">
-              <ShoppingCart className="h-12 w-12 text-earthy-green-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Real-time Inventory</h3>
-              <p className="text-gray-600">
-                See exactly what's available right now. Inventory updates 
-                in real-time as other customers make purchases.
-              </p>
-            </div>
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="bg-earthy-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                  <Shield className="h-8 w-8 text-earthy-green-600" />
+                </div>
+                <CardTitle className="text-xl">Blockchain Security</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-center text-base">
+                  Your transactions are secured by blockchain technology, ensuring transparency and traceability from farm to table.
+                </CardDescription>
+              </CardContent>
+            </Card>
 
-            <div className="bg-white rounded-lg p-6 shadow-lg">
-              <Leaf className="h-12 w-12 text-earthy-green-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Product Information</h3>
-              <p className="text-gray-600">
-                Get detailed information about each product including origin, 
-                harvest date, and growing methods.
-              </p>
-            </div>
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="bg-earthy-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                  <Smartphone className="h-8 w-8 text-earthy-green-600" />
+                </div>
+                <CardTitle className="text-xl">Mobile-First Design</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-center text-base">
+                  Shop seamlessly on any device with our responsive design that works perfectly on your smartphone or tablet.
+                </CardDescription>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
 
-            <div className="bg-white rounded-lg p-6 shadow-lg">
-              <MapPin className="h-12 w-12 text-earthy-green-600 mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Local Discovery</h3>
-              <p className="text-gray-600">
-                Find participating farm stands in your area and discover 
-                new local farmers and seasonal products.
-              </p>
-            </div>
+      {/* How It Works Section */}
+      <div className="bg-gray-50 py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              How It Works
+            </h2>
+            <p className="text-xl text-gray-600">
+              Getting fresh produce has never been easier
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              {
+                step: "01",
+                title: "Find a Farm Stand",
+                description: "Locate participating farmers' stands in your area or browse our directory."
+              },
+              {
+                step: "02",
+                title: "Scan QR Code",
+                description: "Use your phone to scan the unique QR code displayed at the stand."
+              },
+              {
+                step: "03",
+                title: "Shop & Pay",
+                description: "Browse available products, add to cart, and pay securely with your wallet."
+              },
+              {
+                step: "04",
+                title: "Collect & Enjoy",
+                description: "Show your receipt and collect your fresh, local produce to take home."
+              }
+            ].map((item, index) => (
+              <div key={index} className="text-center">
+                <div className="bg-earthy-green-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                  {item.step}
+                </div>
+                <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* CTA Section */}
-      <div className="py-16 bg-earthy-green-600">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <QrCode className="h-16 w-16 text-earthy-green-100 mx-auto mb-6" />
+      <div className="bg-earthy-green-600 py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Start Shopping?
           </h2>
           <p className="text-xl text-earthy-green-100 mb-8">
-            Experience the future of farm-to-table shopping with our QR scanner demo
+            Join thousands of customers who are already enjoying fresh, local produce.
           </p>
-          <Link to="/qr-scanner">
-            <Button size="lg" className="bg-white text-earthy-green-600 hover:bg-gray-100">
-              Try QR Scanner Now
-            </Button>
-          </Link>
+          <Button 
+            size="lg" 
+            variant="secondary"
+            className="bg-white text-earthy-green-700 hover:bg-earthy-green-50 px-8 py-3 text-lg"
+          >
+            Get Started Today
+          </Button>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
