@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Sprout, Users, ShoppingCart, QrCode, Wallet, Shield, Zap } from 'lucide-react';
@@ -107,7 +108,7 @@ const Index = () => {
             </Link>
             <Link to="/buyer-info">
               <Button size="lg" variant="outline" className="border-earthy-green-600 text-earthy-green-600 hover:bg-earthy-green-600 hover:text-white px-8 py-4 text-lg">
-                <User className="mr-2 h-5 w-5" />
+                <Users className="mr-2 h-5 w-5" />
                 I'm a Buyer
               </Button>
             </Link>
